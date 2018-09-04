@@ -1,6 +1,8 @@
+package PetClinic;
+
 public class Cat extends Pet {
 
     public Cat(String name) {
-        super(name);
+        super(name,"cat");
     }
 }

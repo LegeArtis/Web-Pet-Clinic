@@ -1,10 +1,22 @@
+package PetClinic;
+
 public class Client {
     private String id;
     private Pet pet;
+    private  String phone;
 
-    public Client(String id, Pet pet) {
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public Client(String id, Pet pet, String phone) {
         this.id = id;
         this.pet = pet;
+        this.phone = phone;
     }
 
     public void setId(String id) {
