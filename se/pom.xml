@@ -9,7 +9,7 @@
     <version>1.0-SNAPSHOT</version>
     <packaging>jar</packaging>
 
-    <name>se</name>
+    <name>SE</name>
     <url>http://maven.apache.org</url>
 
     <dependencies>
@@ -30,6 +30,12 @@
             <scope>test</scope>
         </dependency>
     </dependencies>
+
+    <properties>
+        <maven.compiler.source>1.7</maven.compiler.source>
+        <maven.compiler.target>1.7</maven.compiler.target>
+        <encoding>UTF-8</encoding>
+    </properties>
 
     <build>
         <plugins>

@@ -13,6 +13,11 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 
+/**
+ * @author JS
+ * @since 05.09.2018
+ */
+
 public class UserCreateServletTest extends Mockito {
 
     final UserCache cache = UserCache.getInstance();
