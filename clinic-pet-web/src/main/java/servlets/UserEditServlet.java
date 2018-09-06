@@ -19,11 +19,11 @@ import java.io.IOException;
 public class UserEditServlet extends HttpServlet {
     private int id = 0;
 
-    private final UserCache USER_CACHE = UserCache.getInstance();
+    private final UserCache cache = UserCache.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("users", this.USER_CACHE.get(Integer.valueOf(req.getParameter("id"))));
+        req.setAttribute("users", this.cache.get(Integer.valueOf(req.getParameter("id"))));
         id = Integer.valueOf(req.getParameter("id"));
         RequestDispatcher dispatcher = req.getRequestDispatcher("/views/user/EditUser.jsp");
         dispatcher.forward(req,resp);
@@ -34,7 +34,7 @@ public class UserEditServlet extends HttpServlet {
         Pet pet = new Pet(req.getParameter("pet_name"), req.getParameter("pet_type"));
         User user = new User(id,req.getParameter("login"),req.getParameter("email"),pet, req.getParameter("phone"));
 
-        this.USER_CACHE.edit(user);
+        this.cache.edit(user);
         resp.sendRedirect(String.format("%s%s", req.getContextPath(), "/user/view"));
     }
 }

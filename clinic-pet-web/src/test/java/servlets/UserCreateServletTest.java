@@ -20,7 +20,7 @@ import static org.junit.Assert.*;
 
 public class UserCreateServletTest extends Mockito {
 
-    final UserCache cache = UserCache.getInstance();
+    private final UserCache cache = UserCache.getInstance();
 
     @Test
     public void createTest() throws ServletException, IOException {

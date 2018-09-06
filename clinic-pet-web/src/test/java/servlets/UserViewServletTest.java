@@ -14,8 +14,12 @@ import java.io.IOException;
 
 import static org.junit.Assert.*;
 
+/**
+ * @author JS
+ * @since 06.09.2018
+ */
+
 public class UserViewServletTest extends Mockito {
-        UserCache cache = UserCache.getInstance();
 
     @Test
     public void createTest() throws ServletException, IOException {

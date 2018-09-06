@@ -15,11 +15,11 @@ import java.io.IOException;
 
 public class UserDeleteServlet extends HttpServlet {
 
-    private final UserCache USER_CACHE = UserCache.getInstance();
+    private final UserCache cache = UserCache.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        this.USER_CACHE.delete(Integer.valueOf(req.getParameter("id")));
+        this.cache.delete(Integer.valueOf(req.getParameter("id")));
         resp.sendRedirect(String.format("%s%s", req.getContextPath(), "/user/view"));
     }
 }

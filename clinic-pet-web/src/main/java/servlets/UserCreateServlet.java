@@ -18,14 +18,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class UserCreateServlet extends HttpServlet {
 
-    final AtomicInteger ids = new AtomicInteger();
-    private final UserCache USER_CACHE = UserCache.getInstance();
+    private final AtomicInteger ids = new AtomicInteger();
+    private final UserCache cache = UserCache.getInstance();
 
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Pet pet = new Pet(req.getParameter("pet_name"), req.getParameter("pet_type"));
         User user = new User(this.ids.incrementAndGet(),req.getParameter("login"), req.getParameter("email"),pet,req.getParameter("phone"));
-        this.USER_CACHE.add(user);
+        this.cache.add(user);
         resp.sendRedirect(String.format("%s%s", req.getContextPath(), "/user/view"));
     }
 }

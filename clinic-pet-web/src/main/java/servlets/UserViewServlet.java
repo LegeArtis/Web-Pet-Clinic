@@ -16,11 +16,11 @@ import java.io.IOException;
 
 public class UserViewServlet extends HttpServlet {
 
-    private final UserCache USER_CACHE = UserCache.getInstance();
+    private final UserCache cache = UserCache.getInstance();
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("users", this.USER_CACHE.values());
+        req.setAttribute("users", this.cache.values());
         RequestDispatcher dispatcher = req.getRequestDispatcher("/views/user/UserView.jsp");
         dispatcher.forward(req,resp);
     }
