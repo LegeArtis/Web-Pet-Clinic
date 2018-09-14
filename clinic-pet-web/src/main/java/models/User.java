@@ -21,7 +21,9 @@ public class User {
         this.email = email;
         this.pet = pet;
         this.phone = phone;
+
     }
+
 
     public int getId() {
         return id;

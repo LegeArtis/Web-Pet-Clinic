@@ -10,13 +10,13 @@
     </description>
 
     <servlet>
-        <servlet-name>ClinicServlet</servlet-name>
-        <servlet-class>servlets.ClinicServlet</servlet-class>
+        <servlet-name>CreateUserJsonServlet</servlet-name>
+        <servlet-class>servlets.CreateUserJsonServlet</servlet-class>
     </servlet>
 
     <servlet-mapping>
-        <servlet-name>ClinicServlet</servlet-name>
-        <url-pattern>/</url-pattern>
+        <servlet-name>CreateUserJsonServlet</servlet-name>
+        <url-pattern>/user/json</url-pattern>
     </servlet-mapping>
     
     <servlet>
