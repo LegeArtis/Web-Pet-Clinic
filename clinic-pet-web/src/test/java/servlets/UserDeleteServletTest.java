@@ -30,7 +30,7 @@ public class UserDeleteServletTest extends Mockito {
 
         assertFalse(isUserExist());
 
-        cache.add(new User(1,"test","test",new Pet("test", "test"),"test"));
+        cache.add(new User(1,"test","test",new Pet("test", "test"),"test","NaN","NaN","false"));
 
         assertTrue(isUserExist());
 

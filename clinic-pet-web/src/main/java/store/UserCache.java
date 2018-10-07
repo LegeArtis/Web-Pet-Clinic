@@ -24,7 +24,7 @@ public class UserCache {
         return this.users.values();
     }
 
-    public void add(final  User user){
+    public void add(final User user){
         this.users.put(user.getId(), user);
     }
 
@@ -42,7 +42,7 @@ public class UserCache {
 
     public User findByLogin(final String login){
        for (ConcurrentHashMap.Entry<Integer,User> entry : users.entrySet()){
-           if (entry.getValue().getLogin().compareTo(login)==0)
+           if (entry.getValue().getName().compareTo(login)==0)
                return entry.getValue();
        }
        return null;

@@ -32,7 +32,7 @@ public class UserEditServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Pet pet = new Pet(req.getParameter("pet_name"), req.getParameter("pet_type"));
-        User user = new User(id,req.getParameter("login"),req.getParameter("email"),pet, req.getParameter("phone"));
+        User user = new User(id,req.getParameter("login"),req.getParameter("email"),pet, req.getParameter("phone"),"NaN","NaN","true");
 
         this.cache.edit(user);
         resp.sendRedirect(String.format("%s%s", req.getContextPath(), "/user/view"));

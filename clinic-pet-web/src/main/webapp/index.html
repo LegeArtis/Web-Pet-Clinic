@@ -4,36 +4,79 @@
     <meta charset="UTF-8">
     <title>Клиника</title>
     <link rel="stylesheet" href="css/style.css">
-    <script type="text/javascript" src="js/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-3.3.1.js"></script>
     <script type="text/javascript">
+
         function createUser() {
-            if (validate()) {
+            var info = {
+                login : "Test",
+                phone : "000-00",
+                petName : "Barsik",
+                city : $('#city').val(),
+                sex : $('#sex').val(),
+                agree : $('#agree').val(),
+                petType : "Cat",
+                email : "test@test"
+            };
+              $('#users').html("<tr><th>COOL</th></tr>");
+            $.ajax({
+                url: 'user/json',
+                type: 'post',
+                dataType: 'json',
+                data: JSON.stringify(info)
+                });
+
+
+         /*   $.ajax('user/json', {
+                type : "post",
+                data: {login : $('#name').val()}
+            });
+          /*  if (validate()) {
+                var info = {
+                    login : $('#name').val(),
+                    phone : $('#phone').val(),
+                    petName : $('#petName').val(),
+                    city : $('#city').val(),
+                    sex : $('#sex').val(),
+                    agree : $('#agree').val(),
+                    petType : $('#petType').val(),
+                    email : $('#email').val()
+                };
+
                 $('#name').css('background-color','');
                 $.ajax('user/json', {
-                    method : 'post',
-                    data: JSON.stringify({
-                        login : $('#name').val(),
-                        phone : $('#phone').val(),
-                        petName : $('#petName').val(),
-                        city : $('#city').val(),
-                        sex : $('#sex').val(),
-                        agree : $('#agree').val(),
-                        petType : $('#petType').val(),
-                        email : $('#email').val()
-                    }),
-                    complete: function (data) {
-                        loadUsers();
+                    type : "post",
+                    dataType: 'json',
+                    data: JSON.stringify(info),
+                  /*  complete: function (data) {
+                        loadUsers()
                     }
+                  complete: loadUsers()
                 });
+
             } else {
                 alert("Заполните поля!")
-            }
-            
+            }*/
         }
 
         function loadUsers() {
-            $.ajax('user/json', {
-                method : 'get',
+          /*  $.ajax('user/json', {
+                 type: 'get',
+                 dataType : 'json',
+                complete: function (data) {
+                    var  table = "<table>";
+                    table += "<tr><th>Имя</th></tr>"
+                    var size = data.length;
+                    for (var i = 0; i!= size ; ++i) {
+                        table += "<tr><td>" + data[i].login+ "</td></tr>"
+                   }
+                    table += "</table>"
+                    $('#users').html(table);
+                  }
+             });
+
+         /*   $.ajax('user/json', {
+               // type : "GET",
                 success: function (data) {
                     var  table = "<table>";
                     table += "<tr><th>Имя</th></tr>"
@@ -43,8 +86,9 @@
                     }
                     table += "</table>"
                     $('#users').html(table);
+                    $('#users').html("<tr><th>TEST 22</th></tr>");
                 }
-            });
+            });*/
         }
 
         function validate() {
@@ -57,13 +101,14 @@
         }
 
         $(function () {
+            $('#users').css('background-color','gray');
+
             loadUsers()
         })
                 </script>
 </head>
 <body>
 <div id="users" class="center">
-
 </div>
 <div class="center">
     <div class="form">
@@ -94,8 +139,8 @@
         <div>
             <label for="sex">Пол</label>
             <span>
-                <input type="radio" name="sex" id="sex" value="Муж"/> Мужской
-                <input type="radio" name="sex" value="Жен"/> Женский
+                <input type="radio" name="sex" id="sex" value="Муж."/> Мужской
+                <input type="radio" name="sex" value="Жен."/> Женский
             </span>
         </div>
         <div>

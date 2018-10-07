@@ -1,5 +1,8 @@
 package form;
 
+import PetClinic.Pet;
+import models.User;
+
 /**
  * @author JS
  * @since 06.09.2018
@@ -11,7 +14,7 @@ public class UserForm {
     private String petName;
     private String city;
     private String sex;
-    private boolean agree;
+    private String agree;
     private String petType;
     private String email;
 
@@ -21,27 +24,32 @@ public class UserForm {
         this.phone = phone;
         this.petName = petName;
         this.city = city(city);
-        this.sex = sex(sex);
-        this.agree = agree(agree);
+        this.sex = sex;
+        this.agree = agreeConvert(agree);
         this.petType = petType;
         this.email = email;
     }
 
-    private boolean agree(String s){
-        return s.compareTo("on") == 0;
+    /**
+     * Convert radio(on/off) to true/false by String
+     * @param text radio
+     * @return String line
+     */
+    private String agreeConvert(String text){
+        if (text.compareTo("on")==0)
+            return "true";
+        else
+            return "false";
     }
 
-    private String sex(String sex){
-        if (sex.compareTo("Муж")==0){
-            return "Муж.";
-        }else {
-            return "Жен.";
-        }
-    }
-
+    /**
+     * Convert choose param to city name
+     * @param s choose param
+     * @return city name
+     */
     private String city(String s){
         String c;
-        int a = Integer.getInteger(s);
+        int a = Integer.parseInt(s);
         if (a == 1){
             c = "Киев";
         }
@@ -75,11 +83,24 @@ public class UserForm {
         return sex;
     }
 
-    public boolean isAgree() {
-        return agree;
-    }
-
     public String getLogin() {
         return login;
+    }
+
+    /**
+     * Create User class from UserForm
+     * @return User class
+     */
+    public User toUser(){
+        User user = new User();
+        Pet pet = new Pet(this.petName, this.petType);
+        user.setAgree(this.agree);
+        user.setCity(this.city);
+        user.setEmail(this.email);
+        user.setName(this.login);
+        user.setPet(pet);
+        user.setPhone(this.phone);
+        user.setSex(this.sex);
+        return user;
     }
 }

@@ -34,7 +34,7 @@ public class UserEditServletTest extends Mockito {
 
         assertTrue(cache.values().isEmpty());
 
-        cache.add(new User(1,"test", "test",new Pet("test","test"),"test"));
+        cache.add(new User(1,"test", "test",new Pet("test","test"),"test","NaN","NaN","false"));
 
         when(request.getParameter("login")).thenReturn("test");
         when(request.getParameter("id")).thenReturn("1");
