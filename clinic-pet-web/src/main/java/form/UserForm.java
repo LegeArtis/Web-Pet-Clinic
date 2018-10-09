@@ -9,6 +9,8 @@ import models.User;
  */
 
 public class UserForm {
+
+
     private String login;
     private String phone;
     private String petName;
@@ -17,6 +19,8 @@ public class UserForm {
     private String agree;
     private String petType;
     private String email;
+
+    public UserForm(){}
 
 
     public UserForm(String login, String phone, String petName, String city, String sex, String agree, String petType, String email) {
@@ -59,34 +63,6 @@ public class UserForm {
         return  c;
     }
 
-    public String getEmail() {
-        return email;
-    }
-
-    public String getPetType() {
-        return petType;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public String getPetName() {
-        return petName;
-    }
-
-    public String getCity() {
-        return city;
-    }
-
-    public String getSex() {
-        return sex;
-    }
-
-    public String getLogin() {
-        return login;
-    }
-
     /**
      * Create User class from UserForm
      * @return User class
@@ -102,5 +78,74 @@ public class UserForm {
         user.setPhone(this.phone);
         user.setSex(this.sex);
         return user;
+    }
+
+    @Override
+    public String toString() {
+        return "ClassPojo [sex = "+sex+", phone = "+phone+", email = "+email+", petType = "+petType+", login = "+login+", petName = "+petName+", agree = "+agree+", city = "+city+"]";
+    }
+
+    public String getLogin() {
+        return login;
+    }
+
+    public void setLogin(String login) {
+        this.login = login;
+    }
+
+    public String getPhone() {
+        return phone;
+    }
+
+    public void setPhone(String phone) {
+        this.phone = phone;
+    }
+
+    public String getPetName() {
+        return petName;
+    }
+
+    public void setPetName(String petName) {
+        this.petName = petName;
+    }
+
+    public String getCity() {
+        return city;
+    }
+
+    public void setCity(String city) {
+        this.city = city;
+    }
+
+    public String getSex() {
+        return sex;
+    }
+
+    public void setSex(String sex) {
+        this.sex = sex;
+    }
+
+    public String getAgree() {
+        return agree;
+    }
+
+    public void setAgree(String agree) {
+        this.agree = agree;
+    }
+
+    public String getPetType() {
+        return petType;
+    }
+
+    public void setPetType(String petType) {
+        this.petType = petType;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
