@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+        "http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+
+<hibernate-mapping>
+    <class name="models.UserModelHibernate" table="client">
+        <meta attribute="class-description">
+            This is contains the user detail.
+        </meta>
+        <id name="id" type="int" column="uid">
+            <generator class="identity"/>
+        </id>
+        <property name="name" column="name" type="string"/>
+        <property name="phone" column="phone" type="string"/>
+        <property name="city" column="city" type="java.lang.String"/>
+        <property name="sex" column="sex" type="java.lang.String"/>
+        <property name="email" column="email" type="java.lang.String"/>
+        <property name="agree" column="agree" type="java.lang.String"/>
+            </class>
+</hibernate-mapping>
