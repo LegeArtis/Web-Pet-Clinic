@@ -6,50 +6,49 @@ import form.UserForm;
 import form.UserPojo;
 import models.User;
 
+import store.HibernateStorage;
 import store.JdbcStorage;
 import javax.servlet.ServletException;
 import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
+import java.io.*;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class CreateUserJsonServlet extends HttpServlet {
 
-    private JdbcStorage jdbcStorage = new JdbcStorage();
+     private HibernateStorage storage = new HibernateStorage();
+
 
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.addHeader("Content-Type", "application/json; charset=utf-8");
-        final ServletOutputStream out = resp.getOutputStream();
-        out.print(new ObjectMapper().writeValueAsString(jdbcStorage.values()));
-        out.flush();
-
+        resp.setCharacterEncoding("UTF-8");
+        ArrayList<User> list = storage.values();
+        ObjectMapper mapper = new ObjectMapper();
+        PrintWriter writer = resp.getWriter();
+        ArrayList<UserPojo> userPojo = new ArrayList<>();
+        for (User user : list) {
+           userPojo.add(user.toUserPojo());
+        }
+        writer.print(mapper.writeValueAsString(userPojo));
+        writer.flush();
+        writer.close();
     }
 
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.addHeader("Content-Type", "application/json; charset=utf-8");
-        StringBuilder builder = new StringBuilder();
-        String a = null;
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(req.getInputStream(), "UTF-8"))){
-            while ((a = reader.readLine())!=null){
-                builder.append(a);
-            }
-        }
         ObjectMapper objectMapper = new ObjectMapper();
-        UserPojo pojo = objectMapper.readValue(builder.toString(),UserPojo.class);
-
+        UserForm form = objectMapper.readValue(req.getInputStream(),UserForm.class);
+        storage.add(form.toUser());
+        resp.getOutputStream().write("('result' : 'true')".getBytes());
     }
-
-    /*
-        User user = new User();
-        jdbcStorage.add(user);
-        resp.getOutputStream().write("('result' : 'true')".getBytes());*/
 }
 
 

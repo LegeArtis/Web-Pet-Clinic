@@ -8,36 +8,13 @@
     <script type="text/javascript">
 
         function createUser() {
-            var info = {
-                login : "Test",
-                phone : "000-00",
-                petName : "Barsik",
-                city : $('#city').val(),
-                sex : $('#sex').val(),
-                agree : $('#agree').val(),
-                petType : "Cat",
-                email : "test@test"
-            };
-              $('#users').html("<tr><th>COOL</th></tr>");
-            $.ajax({
-                url: 'user/json',
-                type: 'post',
-                dataType: 'json',
-                data: JSON.stringify(info)
-                });
-
-
-         /*   $.ajax('user/json', {
-                type : "post",
-                data: {login : $('#name').val()}
-            });
-          /*  if (validate()) {
+           if (validate()) {
                 var info = {
                     login : $('#name').val(),
                     phone : $('#phone').val(),
                     petName : $('#petName').val(),
                     city : $('#city').val(),
-                    sex : $('#sex').val(),
+                    sex : $("input[name=sex]:checked").val(),
                     agree : $('#agree').val(),
                     petType : $('#petType').val(),
                     email : $('#email').val()
@@ -48,48 +25,93 @@
                     type : "post",
                     dataType: 'json',
                     data: JSON.stringify(info),
-                  /*  complete: function (data) {
+                    complete: function (data) {
+                        console.log(data)
                         loadUsers()
                     }
-                  complete: loadUsers()
                 });
 
             } else {
                 alert("Заполните поля!")
-            }*/
+            }
         }
 
         function loadUsers() {
-          /*  $.ajax('user/json', {
-                 type: 'get',
-                 dataType : 'json',
-                complete: function (data) {
-                    var  table = "<table>";
-                    table += "<tr><th>Имя</th></tr>"
-                    var size = data.length;
-                    for (var i = 0; i!= size ; ++i) {
-                        table += "<tr><td>" + data[i].login+ "</td></tr>"
-                   }
-                    table += "</table>"
-                    $('#users').html(table);
-                  }
-             });
 
-         /*   $.ajax('user/json', {
-               // type : "GET",
-                success: function (data) {
-                    var  table = "<table>";
-                    table += "<tr><th>Имя</th></tr>"
-                    var size = data.length;
-                    for (var i = 0; i!= size ; i++) {
-                        table += "<tr><td>" + data[i].login + "</td></tr>"
+               $.ajax('user/json', {
+               method: 'get',
+                   dataType: 'json',
+            complete: function (data) {
+                   console.log(data);
+                var table = "<table><tr><th>ID</th>";
+                table += "<th>Имя</th>";
+                table += "<th>Телефон</th>";
+                table += "<th>Имя петомца</th>";
+                table += "<th>Тип</th>";
+                table += "<th>Город</th>";
+                table += "<th>Пол</th>";
+                table += "<th>Email</th>";
+                table += "<th>Согласие</th></tr>";
+                var arr = data.responseJSON;
+                if (undefined !== arr)
+                var size = data.responseJSON.length;
+                for (var i = 0; i < size ; i++) {
+                    var userId = data.responseJSON[i].id;
+                     table += "<tr><th>"+userId+"</th>";
+                     table += "<th>"+data.responseJSON[i].login+"</th>";
+                     table += "<th>"+data.responseJSON[i].phone+"</th>";
+                     table += "<th>"+data.responseJSON[i].petName+"</th>";
+                     table += "<th>"+data.responseJSON[i].petType+"</th>";
+                     table += "<th>"+data.responseJSON[i].city+"</th>";
+                     table += "<th>"+data.responseJSON[i].sex+"</th>";
+                     table += "<th>"+data.responseJSON[i].email+"</th>";
+                     table += "<th>"+data.responseJSON[i].agree+"</th>";
+                    table += "<th><input type=\"button\" value=\"Edit\" onclick=  editUser("+userId+")></th>";
+                    table += "<th><input type=\"button\" value=\"Delete\" onclick = deleteUser("+userId+")></th></tr>";
                     }
-                    table += "</table>"
-                    $('#users').html(table);
-                    $('#users').html("<tr><th>TEST 22</th></tr>");
-                }
-            });*/
+                     table += "</table>";
+                     $('#users').html(table);
+             }
+            });
         }
+        function editUser(id) {
+            var info = {
+                login : $('#name').val(),
+                phone : $('#phone').val(),
+                petName : $('#petName').val(),
+                city : $('#city').val(),
+                sex : $("input[name=sex]:checked").val(),
+                agree : $('#agree').val(),
+                petType : $('#petType').val(),
+                email : $('#email').val(),
+                id: id.toString()
+            };
+            $.ajax('edit/json', {
+                method: 'post',
+                dataType: 'json',
+                data: JSON.stringify(info),
+                complete: function (data) {
+                    console.log(data)
+                    loadUsers()
+                }
+            });
+        }
+
+        function deleteUser(id) {
+
+            $.ajax('deleteUser/json', {
+                method: 'post',
+                dataType: 'json',
+                data: {id: id.toString()},
+                complete: function (data) {
+                    console.log(data)
+                    loadUsers()
+                }
+            });
+
+        }
+
+
 
         function validate() {
             var result = true;
@@ -101,14 +123,12 @@
         }
 
         $(function () {
-            $('#users').css('background-color','gray');
-
             loadUsers()
         })
                 </script>
 </head>
 <body>
-<div id="users" class="center">
+<div id="users" class="list">
 </div>
 <div class="center">
     <div class="form">
@@ -137,10 +157,10 @@
             <input type="checkbox" name="agree" id="agree">
         </div>
         <div>
-            <label for="sex">Пол</label>
+            <label for="sex" id="sex" >Пол</label>
             <span>
-                <input type="radio" name="sex" id="sex" value="Муж."/> Мужской
-                <input type="radio" name="sex" value="Жен."/> Женский
+                <input type="radio" name="sex"   value="Муж."/> Мужской
+                <input type="radio" name="sex"  value="Жен."/> Женский
             </span>
         </div>
         <div>

@@ -1,10 +1,12 @@
 package store;
 
 import PetClinic.Pet;
+import antlr.RecognitionException;
 import models.PetModelHibernate;
 import models.User;
 import models.UserModelHibernate;
 import org.hibernate.*;
+import org.hibernate.action.spi.Executable;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
@@ -23,11 +25,11 @@ public class HibernateStorage implements Storage {
      */
     @Override
     public ArrayList<User> values() {
-        final Session session = factory.openSession();
+        Session session = factory.openSession();
         Transaction tx = session.beginTransaction();
         try {
-            Query queryPet = session.createQuery("from PetModelHibernate ");
             Query queryUser = session.createQuery("from UserModelHibernate ");
+            Query queryPet = session.createQuery("from PetModelHibernate ");
 
             ArrayList<User> list = new ArrayList<>();
             for (UserModelHibernate userModelHibernate : (ArrayList<UserModelHibernate>)queryUser.list()) {
@@ -37,12 +39,11 @@ public class HibernateStorage implements Storage {
             }
 
             return list;
-        } finally {
+        } finally
+         {
             tx.commit();
             session.close();
-            factory.close();
         }
-
     }
 
     /**
@@ -74,7 +75,6 @@ public class HibernateStorage implements Storage {
         } finally {
             session.getTransaction().commit();
             session.close();
-            factory.close();
         }
 
 
@@ -92,12 +92,12 @@ public class HibernateStorage implements Storage {
             Query queryPet = session.createQuery("from PetModelHibernate ");
             UserModelHibernate userModelHibernate = user.getUserModelHibernate();
             session.update(userModelHibernate);
-            PetModelHibernate petModelHibernate = getPetById((ArrayList<PetModelHibernate>) queryPet.list(),userModelHibernate.getId());
+            PetModelHibernate petModelHibernate = user.getPetModelHibernate(user.getId());
+            petModelHibernate.setId(getPetById((ArrayList<PetModelHibernate>) queryPet.list(),userModelHibernate.getId()).getId());
             session.update(petModelHibernate);
         } finally {
             session.getTransaction().commit();
             session.close();
-            factory.close();
         }
     }
 
@@ -123,7 +123,6 @@ public class HibernateStorage implements Storage {
         } finally {
         session.getTransaction().commit();
         session.close();
-        factory.close();
      }
     }
 
@@ -143,7 +142,6 @@ public class HibernateStorage implements Storage {
         } finally {
         session.getTransaction().commit();
         session.close();
-        factory.close();
     }
 
     }
@@ -170,5 +168,6 @@ public class HibernateStorage implements Storage {
 
     @Override
     public void close() {
+        factory.close();
     }
 }

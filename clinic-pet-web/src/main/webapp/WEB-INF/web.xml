@@ -18,6 +18,26 @@
         <servlet-name>CreateUserJsonServlet</servlet-name>
         <url-pattern>/user/json</url-pattern>
     </servlet-mapping>
+
+    <servlet>
+        <servlet-name>EditUserJsonServlet</servlet-name>
+        <servlet-class>servlets.EditUserJsonServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>EditUserJsonServlet</servlet-name>
+        <url-pattern>/edit/json</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteUserJsonServlet</servlet-name>
+        <servlet-class>servlets.DeleteUserJsonServlet</servlet-class>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>DeleteUserJsonServlet</servlet-name>
+        <url-pattern>/deleteUser/json</url-pattern>
+    </servlet-mapping>
     
     <servlet>
         <servlet-name>UserViewServlet</servlet-name>

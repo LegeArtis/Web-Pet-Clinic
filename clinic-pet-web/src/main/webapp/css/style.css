@@ -6,7 +6,16 @@ label {
 .form div {
     padding: 5px 0 5px 0;
 }
+.list{
+    margin-left: auto;
+    margin-right: auto;
+    padding: 10px;
+    width: auto;
+}
 
+.list div{
+    background-color: lightgreen;
+}
 .center {
     margin-left: auto;
     margin-right: auto;

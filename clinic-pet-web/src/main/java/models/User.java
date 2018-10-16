@@ -1,6 +1,7 @@
 package models;
 
 import PetClinic.Pet;
+import form.UserPojo;
 
 import javax.annotation.Generated;
 import javax.persistence.Column;
@@ -49,6 +50,47 @@ public class User {
         this.agree = agree;
     }
 
+    public User(UserPojo pojo){
+        Pet pet = new Pet(pojo.getPetName(),pojo.getPetType());
+        this.id = pojo.getId();
+        this.name = pojo.getLogin();
+        this.email = pojo.getEmail();
+        this.pet = pet;
+        this.phone = pojo.getPhone();
+        this.sex = pojo.getSex();
+        this.city = city(pojo.getCity());
+        this.agree = agreeConvert(pojo.getAgree());
+    }
+
+    /**
+     * Convert radio(on/off) to true/false by String
+     * @param text radio
+     * @return String line
+     */
+    private String agreeConvert(String text){
+        if (text.compareTo("on")==0)
+            return "true";
+        else
+            return "false";
+    }
+
+    /**
+     * Convert choose param to city name
+     * @param s choose param
+     * @return city name
+     */
+    private String city(String s){
+        String c;
+        int a = Integer.parseInt(s);
+        if (a == 1){
+            c = "Киев";
+        }
+        else {
+            c = "Ирпень";
+        }
+        return  c;
+    }
+
     public int getId() {
         return id;
     }
@@ -79,6 +121,24 @@ public class User {
 
     public String getAgree() {
         return agree;
+    }
+
+    /**
+     * Create UserPojo class from User class
+     * @return UserPojo class
+     */
+    public UserPojo toUserPojo(){
+        UserPojo pojo = new UserPojo();
+        pojo.setAgree(this.agree);
+        pojo.setCity(this.city);
+        pojo.setEmail(this.email);
+        pojo.setLogin(this.name);
+        pojo.setPetName(this.pet.getName());
+        pojo.setPetType(this.pet.getType());
+        pojo.setPhone(this.phone);
+        pojo.setSex(this.sex);
+        pojo.setId(this.id);
+        return pojo;
     }
 
     /**

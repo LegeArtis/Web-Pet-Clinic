@@ -6,6 +6,7 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 @JsonPropertyOrder({
+        "id",
         "login",
         "phone",
         "petName",
@@ -17,6 +18,8 @@ import com.fasterxml.jackson.annotation.JsonPropertyOrder;
 })
 public class UserPojo {
 
+    @JsonProperty("id")
+    private int id;
     @JsonProperty("login")
     private String login;
     @JsonProperty("phone")
@@ -33,6 +36,16 @@ public class UserPojo {
     private String petType;
     @JsonProperty("email")
     private String email;
+
+    @JsonProperty("id")
+    public int getId() {
+        return id;
+    }
+
+    @JsonProperty("id")
+    public void setId(int id) {
+        this.id = id;
+    }
 
     @JsonProperty("login")
     public String getLogin() {

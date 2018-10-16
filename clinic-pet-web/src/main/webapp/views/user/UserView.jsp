@@ -25,7 +25,7 @@
         </tr>
         <c:forEach items="${users}" var="user" varStatus="status">
             <tr valign="top">
-                <td> ${user.login} </td>
+                <td> ${user.name} </td>
                 <td> ${user.email} </td>
                 <td> ${user.phone} </td>
                 <td> ${user.pet.name} </td>

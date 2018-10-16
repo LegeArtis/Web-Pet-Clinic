@@ -70,8 +70,8 @@ public class UserForm {
     public User toUser(){
         User user = new User();
         Pet pet = new Pet(this.petName, this.petType);
-        user.setAgree(this.agree);
-        user.setCity(this.city);
+        user.setAgree(agreeConvert(this.agree));
+        user.setCity(city(this.city));
         user.setEmail(this.email);
         user.setName(this.login);
         user.setPet(pet);
